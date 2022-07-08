@@ -8,6 +8,9 @@ function Header() {
 
   const {totalPrice, itemsPizza} = useSelector((state) => state.cardReducer);
 
+  console.log(itemsPizza.count)
+  const totalCount = itemsPizza.reduce((sum, itemsPizza) => sum + itemsPizza.count, 0)
+
   return (
     <div className="header">
       <div className="container">
@@ -55,7 +58,7 @@ function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{itemsPizza.length}</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>

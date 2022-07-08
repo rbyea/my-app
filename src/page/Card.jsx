@@ -1,7 +1,7 @@
 import React from 'react';
 import CardBlock from '../components/CardBlock/CardBlock'
 
-function Card() {
+function Card({id, title, imageUrl, price, type}) {
   return(
     <CardBlock />
   )

@@ -1,32 +1,36 @@
 import { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addItem } from '../../redux/slices/cardSlice';
+import { setAddItem } from '../../redux/slices/cardSlice';
 
 function PizzaBlock({id, title, imageUrl, price, sizes, types}) {
-
   const [typeCount, setTypeCount] = useState(0);
   const [sizeCount, setSizeCount] = useState(0);
 
   const typeName = ['тонкое', 'традиционное'];
 
   const {totalPrice, itemsPizza} = useSelector((state) => state.cardReducer);
+
+
   const dispatch = useDispatch();
 
+  const cardItem = useSelector((state) => state.cardReducer.itemsPizza.find((obj) => obj.id == id))
+
+  const addedCount = cardItem ? cardItem.count : 0;
+  
+
   const addItemPizza = () => {
-
-    const item = {
-      id,
-      title,
-      imageUrl,
-      price,
-      sizes: sizeCount,
-      types: typeCount
-    }
-
-    dispatch(addItem(item));
+    const item =
+      {
+        id,
+        title,
+        imageUrl,
+        price,
+        sizes: sizeCount,
+        types: typeName[typeCount]
+      }
+    dispatch(setAddItem(item))
   }
-
 
   return ( 
 
@@ -70,7 +74,11 @@ function PizzaBlock({id, title, imageUrl, price, sizes, types}) {
               />
             </svg>
             <span>Добавить</span>
-            <i>0</i>
+            
+            {
+              addedCount >0 &&
+              <i>{addedCount}</i>
+            }
           </button>
         </div>
       </div>
