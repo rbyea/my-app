@@ -1,0 +1,43 @@
+.input {
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 12px 38px 12px 42px;
+  max-width: 350px;
+  flex-shrink: 0;
+  width: 100%;
+  transition: all 0.4s ease;
+  &:focus {
+    border: 1px solid rgba(0,0,0,.3);
+  }
+}
+
+.item {
+  margin-left: 20px;
+  position: relative;
+  max-width: 350px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.iconSearch {
+  height: 22px;
+  left: 14px;
+  opacity: .3;
+  position: absolute;
+  top: 12px;
+  width: 22px;
+}
+
+.iconClose {
+  cursor: pointer;
+  height: 18px;
+  opacity: .3;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 18px;
+  &:hover {
+    opacity: .8;
+  }
+}
