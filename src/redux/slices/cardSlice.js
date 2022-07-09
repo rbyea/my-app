@@ -23,10 +23,23 @@ export const cardSlice = createSlice({
             state.totalPrice = state.itemsPizza.reduce((sum, obj) => {
                 return (obj.price * obj.count) + sum 
             }, 0)
+        },
+        setMinusCount(state,action) {
+            const countItems = state.itemsPizza.find(obj => obj.id == action.payload);
+            if(countItems) {
+                countItems.count--
+            }
+        },
+        setRemoveItem(state, action) {
+            state.itemsPizza = state.itemsPizza.filter((obj) => obj.id != action.payload)
+        },
+        setClearItem(state) {
+            state.itemsPizza = [];
+            state.totalPrice = 0;
         }
     },
 });
 
-export const { setAddItem } = cardSlice.actions;
+export const { setAddItem ,setClearItem, setRemoveItem, setMinusCount} = cardSlice.actions;
 
 export default cardSlice.reducer;

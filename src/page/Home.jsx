@@ -38,7 +38,6 @@ function Home() {
     dispatch(setPage(i))
   }
 
-
   const navigate = useNavigate()
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false)

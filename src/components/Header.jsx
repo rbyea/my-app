@@ -8,7 +8,6 @@ function Header() {
 
   const {totalPrice, itemsPizza} = useSelector((state) => state.cardReducer);
 
-  console.log(itemsPizza.count)
   const totalCount = itemsPizza.reduce((sum, itemsPizza) => sum + itemsPizza.count, 0)
 
   return (
