@@ -23,9 +23,8 @@ function Search() {
 
   const onChangeValue = (event) => {
     setValue(event.target.value);
-    updateSearchValue(event.target.value)
+    updateSearchValue(event.target.value);
   }
-
 
   return (
     <div className={styles.item}>

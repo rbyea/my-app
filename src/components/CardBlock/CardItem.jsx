@@ -2,7 +2,7 @@ import React from 'react'
 import {setAddItem, setMinusCount, setRemoveItem} from '../../redux/slices/cardSlice'
 import { useSelector, useDispatch } from 'react-redux';
 
-function CardItem({id, title, imageUrl, count, price, types}) {
+function CardItem({id, title, imageUrl, size, count, price, types}) {
     const dispatch = useDispatch();
     const {totalPrice} = useSelector((state) => state.cardReducer);
 
@@ -34,7 +34,7 @@ function CardItem({id, title, imageUrl, count, price, types}) {
                         </div>
                         <div className="cart__item-info">
                         <h3>{title}</h3>
-                        <p>{types}, 26 см.</p>
+                        <p>{types}, {size} см.</p>
                         </div>
                         <div className="cart__item-count">
                         <div onClick={minusCount} className="button button--outline button--circle cart__item-count-minus">

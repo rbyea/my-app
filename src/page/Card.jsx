@@ -13,6 +13,8 @@ function Card() {
   const {totalPrice, itemsPizza} = useSelector((state) => state.cardReducer);
   const totalCount = itemsPizza.reduce((sum, itemsPizza) => sum + itemsPizza.count, 0)
 
+  console.log(items)
+
   const removeAllItem = () => {
     if(window.confirm('Ты действительно хочешь очистить всю корзину!?')) {
     dispatch(setClearItem())

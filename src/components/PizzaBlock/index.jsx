@@ -26,7 +26,7 @@ function PizzaBlock({id, title, imageUrl, price, sizes, types}) {
         title,
         imageUrl,
         price,
-        sizes: sizeCount,
+        size: sizes[sizeCount],
         types: typeName[typeCount]
       }
     dispatch(setAddItem(item))
