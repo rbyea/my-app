@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom'
 
@@ -12,44 +11,41 @@ import { SearchContext } from '../App';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setPage, setFilters } from '../redux/slices/filterSlice';
-
+import {setItems, fetchPizzas} from '../redux/slices/pizzaSlice';
 
 function Home() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
   const {categoryId, sort, page} = useSelector((state) => state.filterReducer);
+  const {items} = useSelector((state) => state.pizzaReducer);
   
   const {searchValue} = React.useContext(SearchContext)
-
-  const [items, setItems] = React.useState([]);
   const [visibleSkeleton, setVisibleSkeleton] = React.useState(true);
 
-  const skeletrons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+  const getPizzas = async () => {
 
-  const categoryFetch = categoryId > 0 ? `&category=${categoryId}` : '';
-  const sortTypeFetch = '&sortBy=' + `${sort.sortProperty.replace('-', '')}`;
-  const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
-  const search = searchValue ? `&search=${searchValue}` : '';
-
-  const dispatch = useDispatch();
-  const onClickCategory = (id) => {
-    dispatch(setCategoryId(id))
-  }
-  const onChangePagination = (i) => {
-    dispatch(setPage(i))
-  }
-
-  const navigate = useNavigate()
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false)
-
-  const fetchPizzas = () => {
     setVisibleSkeleton(true);
-    axios.get(`https://62c1d18c2af60be89ece4372.mockapi.io/items?page=${page}&limit=4${categoryFetch}${sortTypeFetch}&order=${order}${search}`)
-    .then((resp) =>{
-      setItems(resp.data);
+
+    const categoryFetch = categoryId > 0 ? `&category=${categoryId}` : '';
+    const sortTypeFetch = '&sortBy=' + `${sort.sortProperty.replace('-', '')}`;
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const search = searchValue ? `&search=${searchValue}` : '';
+
+    try {
+      dispatch(fetchPizzas({
+        page,
+        categoryFetch,
+        sortTypeFetch,
+        order,
+        search,
+      }))
       setVisibleSkeleton(false);
-    })
-      // window.scroll({top: 0, left: 0, behavior: 'smooth' });
+    } catch (error) {
+        console.log(error)
+    }
+      // const {data} = await axios.get(`https://62c1d18c2af60be89ece4372.mockapi.io/items?page=${page}&limit=4${categoryFetch}${sortTypeFetch}&order=${order}${search}`)
+
+    // window.scroll({top: 0, left: 0, behavior: 'smooth' });
   }
 
   React.useEffect(() => {
@@ -68,13 +64,11 @@ function Home() {
   }, [])
 
   React.useEffect(() => {
-
-    if(!isSearch.current) {
-      fetchPizzas();
-    } 
-
     isSearch.current = false
 
+    if(!isSearch.current) {
+      getPizzas();
+    } 
   }, [categoryId, sort, searchValue, page]);
 
   React.useEffect(() => {
@@ -90,6 +84,18 @@ function Home() {
     isMounted.current = true
   }, [categoryId, sort, searchValue, page])
 
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
+
+  const skeletrons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
+  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+
+  const onClickCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
+  const onChangePagination = (i) => {
+    dispatch(setPage(i))
+  }
   return(
     <>
         <div className="content__top">
