@@ -16,8 +16,10 @@ body {
   border-radius: 10px;
   max-width: 1400px;
 }
+
 .content {
   padding: 40px 0;
+
   &__title {
     margin: 35px 0;
   }
@@ -46,6 +48,7 @@ body {
   &--cart {
     max-width: 820px;
     margin: 90px auto;
+
     .content__title {
       margin: 0;
     }
@@ -70,6 +73,7 @@ body {
       width: 30px;
       height: 30px;
       margin-right: 10px;
+
       path {
         stroke: $black;
         stroke-width: 1.9;
@@ -102,6 +106,7 @@ body {
           stroke: darken($color: #b6b6b6, $amount: 50);
         }
       }
+
       span {
         color: darken($color: #b6b6b6, $amount: 50);
       }
@@ -202,6 +207,7 @@ body {
           height: 11.5px;
           position: relative;
         }
+
         &:hover,
         &:active {
           border-color: darken($color: $gray-line, $amount: 80);
@@ -259,6 +265,7 @@ body {
 
         svg {
           margin-right: 12px;
+
           path {
             fill: transparent;
             stroke-width: 2;
@@ -316,6 +323,7 @@ body {
 .pizza-block__selector {
   li {
     transition: all 0.4s ease;
+
     &.active {
       transition: all 0.4s ease;
     }
@@ -334,6 +342,7 @@ body {
     justify-content: center;
     align-items: flex-start;
   }
+
   .sort {
     margin-bottom: 20px;
   }
@@ -349,21 +358,25 @@ body {
   .categories {
     width: 100%;
     overflow-x: auto;
+
     ul {
       width: 820px;
       padding-bottom: 10px;
     }
   }
+
   .container {
     margin: 0;
     width: 100%;
     padding-left: 15px;
     padding-right: 15px;
   }
+
   .wrapper {
     margin: 20px 0;
     width: 100%;
   }
+
   .wrapper-container {
     padding-left: 15px;
     padding-right: 15px;
@@ -381,9 +394,11 @@ body {
     flex-direction: column;
     align-items: center;
   }
+
   .header__logo {
     margin-bottom: 20px
   }
+
   .header {
     padding: 20px 0;
   }
@@ -392,4 +407,12 @@ body {
 .header-left-side {
   display: flex;
   align-items: center;
+}
+
+.pizza-width {
+  transition: all 0.4s ease;
+}
+
+.pizza-width:hover {
+  transform: scale(1.05);
 }

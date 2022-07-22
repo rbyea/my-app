@@ -1,19 +1,19 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import {setSort} from '../redux/slices/filterSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectFilter, setSort } from '../redux/slices/filterSlice'
 
 export const objSort = [
-  {name: 'популярности(-)', sortProperty: 'rating'},
-  {name: 'популярности(+)', sortProperty: '-rating'},
-  {name: 'цене(-)', sortProperty: 'price'},
-  {name: 'цене(+)', sortProperty: '-price'},
-  {name: 'алфавиту(-)', sortProperty: 'title'},
-  {name: 'алфавиту(+)', sortProperty: '-title'},
+  { name: 'популярности(-)', sortProperty: 'rating' },
+  { name: 'популярности(+)', sortProperty: '-rating' },
+  { name: 'цене(-)', sortProperty: 'price' },
+  { name: 'цене(+)', sortProperty: '-price' },
+  { name: 'алфавиту(-)', sortProperty: 'title' },
+  { name: 'алфавиту(+)', sortProperty: '-title' },
 ];
 
 function Sort() {
   const dispatch = useDispatch();
-  const sortType = useSelector((state) => state.filterReducer.sort);
+  const { sort } = useSelector(selectFilter);
   const sortRef = React.useRef();
 
   const [open, setOpen] = React.useState(false);
@@ -21,10 +21,10 @@ function Sort() {
   React.useEffect(() => {
 
     const hundlerEventPopup = (event) => {
-      if(!event.path.includes(sortRef.current)) {
+      if (!event.path.includes(sortRef.current)) {
         setOpen(false);
       }
-    }  
+    }
     document.body.addEventListener('click', hundlerEventPopup)
     return () => {
       document.body.removeEventListener('click', hundlerEventPopup)
@@ -52,18 +52,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={()=> setOpen(!open)}>{sortType.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
-      {open &&(
+      {open && (
         <div className="sort__popup">
           <ul>
 
             {
-              objSort.map((obj,i) => (
-                <li 
+              objSort.map((obj, i) => (
+                <li
                   key={i}
                   onClick={() => closePopup(obj)}
-                  className={sortType.sortProperty == obj.sortProperty ? 'active' : ''}>
+                  className={sort.sortProperty == obj.sortProperty ? 'active' : ''}>
                   {obj.name}
                 </li>
               ))

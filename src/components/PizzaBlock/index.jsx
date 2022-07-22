@@ -1,51 +1,52 @@
 import { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAddItem } from '../../redux/slices/cardSlice';
+import { selectCard, selectItemId, setAddItem } from '../../redux/slices/cardSlice';
 
-function PizzaBlock({id, title, imageUrl, price, sizes, types}) {
+function PizzaBlock({ id, title, imageUrl, price, sizes, types }) {
   const [typeCount, setTypeCount] = useState(0);
   const [sizeCount, setSizeCount] = useState(0);
 
   const typeName = ['тонкое', 'традиционное'];
 
-  const {totalPrice, itemsPizza} = useSelector((state) => state.cardReducer);
-
+  const { totalPrice, itemsPizza } = useSelector(selectCard);
 
   const dispatch = useDispatch();
 
-  const cardItem = useSelector((state) => state.cardReducer.itemsPizza.find((obj) => obj.id == id))
+  const cardItem = useSelector(selectItemId)
 
   const addedCount = cardItem ? cardItem.count : 0;
-  
 
   const addItemPizza = () => {
     const item =
-      {
-        id,
-        title,
-        imageUrl,
-        price,
-        size: sizes[sizeCount],
-        types: typeName[typeCount]
-      }
+    {
+      id,
+      title,
+      imageUrl,
+      price,
+      size: sizes[sizeCount],
+      types: typeName[typeCount]
+    }
     dispatch(setAddItem(item))
   }
 
-  return ( 
+  return (
 
     <div className="pizza-width">
       <div className="pizza-block">
-        <img
-          className="pizza-block__image"
-          src={imageUrl}
-          alt="Pizza"
-        />
+        <Link to={`/item/${id}`}>
+          <img
+            className="pizza-block__image"
+            src={imageUrl}
+            alt="Pizza"
+          />
+        </Link>
+
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
             {
-              types.map((i) =>( 
+              types.map((i) => (
                 <li key={i} onClick={() => setTypeCount(i)} className={(typeCount == i) ? 'active' : (types.length == 1) ? 'active' : ''}>{typeName[i]}</li>
               ))
             }
@@ -74,9 +75,9 @@ function PizzaBlock({id, title, imageUrl, price, sizes, types}) {
               />
             </svg>
             <span>Добавить</span>
-            
+
             {
-              addedCount >0 &&
+              addedCount > 0 &&
               <i>{addedCount}</i>
             }
           </button>
