@@ -14,12 +14,16 @@ const initialState = {
   items: [],
   status: 'loading',
   itemId: {},
+  searchValue: '',
 };
 
 export const pizzaSlice = createSlice({
   name: 'pizza',
   initialState,
   reducers: {
+    setSearchValue(state, action) {
+      state.searchValue = action.payload
+    },
     setItems(state, action) {
       state.items = action.payload;
     },
@@ -44,7 +48,7 @@ export const pizzaSlice = createSlice({
   },
 });
 
-export const { setItems, setItemId } = pizzaSlice.actions;
+export const { setItems, setItemId, setSearchValue } = pizzaSlice.actions;
 
 export const selectPizzas = (state) => state.pizzaReducer;
 

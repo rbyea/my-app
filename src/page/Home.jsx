@@ -6,22 +6,18 @@ import Categories from '../components/Categories';
 import Sort, { objSort } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import PaginationBlock from '../components/Pagination'
-import Error from '../components/PizzaBlock/error'
-import { SearchContext } from '../App';
+import PaginationBlock from '../components/Pagination';
+import Error from '../components/PizzaBlock/error';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setPage, setFilters, selectFilter } from '../redux/slices/filterSlice';
-import { setItems, fetchPizzas, selectPizzas } from '../redux/slices/pizzaSlice';
+import { fetchPizzas, selectPizzas } from '../redux/slices/pizzaSlice';
 
 function Home() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { categoryId, sort, page } = useSelector(selectFilter);
-  const { items, status } = useSelector(selectPizzas);
-
-  console.log(status)
-  const { searchValue } = React.useContext(SearchContext)
+  const { items, status, searchValue } = useSelector(selectPizzas);
 
   const getPizzas = async () => {
 

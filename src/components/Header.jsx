@@ -2,8 +2,8 @@ import iconLogo from '../assets/img/pizza-logo.svg';
 import { Link, useLocation, useParams } from "react-router-dom";
 import Search from './Search/Search'
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCard, selectItemId } from '../redux/slices/cardSlice';
+import { useSelector } from 'react-redux';
+import { selectCard } from '../redux/slices/cardSlice';
 import { selectPizzas } from '../redux/slices/pizzaSlice'
 function Header() {
   const location = useLocation();

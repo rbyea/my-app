@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPizzas, setItemId } from '../../redux/slices/pizzaSlice';
 
-const PizzaItem = () => {
+const PizzaItem: React.FC = () => {
   const dispatch = useDispatch();
   const { itemId } = useSelector(selectPizzas)
   const params = useParams();
@@ -27,7 +27,7 @@ const PizzaItem = () => {
 
   if (!Object.keys(itemId).length) {
     return (
-      'Загрузка..'
+      <>Загрузка..</>
     )
   }
 
