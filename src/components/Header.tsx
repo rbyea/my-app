@@ -1,19 +1,19 @@
 import iconLogo from '../assets/img/pizza-logo.svg';
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Search from './Search/Search'
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectCard } from '../redux/slices/cardSlice';
-import { selectPizzas } from '../redux/slices/pizzaSlice'
-function Header() {
+import { selectPizzas } from '../redux/slices/pizzaSlice';
+
+
+const Header: React.FC = () => {
   const location = useLocation();
-  const params = useParams()
-  console.log(params)
 
   const { totalPrice, itemsPizza } = useSelector(selectCard);
   const { itemId } = useSelector(selectPizzas);
 
-  const totalCount = itemsPizza.reduce((sum, itemsPizza) => sum + itemsPizza.count, 0)
+  const totalCount = itemsPizza.reduce((sum: any, itemsPizza: any) => sum + itemsPizza.count, 0)
 
   return (
     <div className="header">

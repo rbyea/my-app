@@ -23,7 +23,7 @@ const PizzaItem: React.FC = () => {
     }
 
     fetchPizza()
-  }, [], [itemId])
+  }, [])
 
   if (!Object.keys(itemId).length) {
     return (

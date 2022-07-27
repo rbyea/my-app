@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setPage, setFilters, selectFilter } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzas } from '../redux/slices/pizzaSlice';
 
-function Home() {
+const Home: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { categoryId, sort, page } = useSelector(selectFilter);
@@ -25,7 +25,7 @@ function Home() {
     const sortTypeFetch = '&sortBy=' + `${sort.sortProperty.replace('-', '')}`;
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
-
+    // @ts-ignore
     dispatch(fetchPizzas({
       page,
       categoryFetch,
@@ -78,10 +78,10 @@ function Home() {
   const skeletrons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id))
   }
-  const onChangePagination = (i) => {
+  const onChangePagination = (i: number) => {
     dispatch(setPage(i))
   }
   return (

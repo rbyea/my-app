@@ -1,17 +1,15 @@
 import React from 'react';
-import { SearchContext } from '../../App';
 import styles from './SearchStyles.module.scss';
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPizzas, setSearchValue } from '../../redux/slices/pizzaSlice';
 
-function Search() {
+const Search: React.FC = () => {
   const [value, setValue] = React.useState('');
   const { searchValue } = useSelector(selectPizzas);
   const dispatch = useDispatch();
 
-  const searchRef = React.useRef();
-
+  const searchRef = React.useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
     dispatch(setSearchValue(''))
@@ -20,13 +18,13 @@ function Search() {
   }
 
   const updateSearchValue = React.useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 350),
     []
   )
 
-  const onChangeValue = (event) => {
+  const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   }

@@ -2,11 +2,19 @@ import React from 'react'
 import { selectCard, setAddItem, setMinusCount, setRemoveItem } from '../../redux/slices/cardSlice'
 import { useSelector, useDispatch } from 'react-redux';
 
-function CardItem({ id, title, imageUrl, size, count, price, types }) {
+type CardItemProps = {
+  id: string;
+  title: string;
+  imageUrl: string;
+  size: number;
+  count: number;
+  price: number;
+  types: number;
+}
+
+const CardItem: React.FC<CardItemProps> = ({ id, title, imageUrl, size, count, price, types }) => {
   const dispatch = useDispatch();
   const { totalPrice } = useSelector(selectCard);
-
-  console.log(totalPrice)
 
   const plusCount = () => {
     dispatch(
@@ -25,7 +33,6 @@ function CardItem({ id, title, imageUrl, size, count, price, types }) {
       dispatch(setRemoveItem(id))
     }
   }
-
 
   return (
     <div className="cart__item">
