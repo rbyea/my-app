@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { CartItemsPizza, selectItemId, setAddItem } from '../../redux/slices/cardSlice';
+import { selectItemId, setAddItem } from '../../redux/slices/cardSlice';
 
 type PizzaBlockProps = {
   id: number;
@@ -23,7 +23,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, price, siz
   const cardItem = useSelector(selectItemId)
 
   const addItemPizza = () => {
-    const item: CartItemsPizza =
+    const item =
     {
       id,
       title,
@@ -36,7 +36,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, price, siz
     dispatch(setAddItem(item))
   }
 
-
+  // @ts-ignore
   const addedCount = cardItem ? cardItem.count : 0;
 
 

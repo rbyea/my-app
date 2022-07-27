@@ -1,22 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { createSlice } from '@reduxjs/toolkit';
 
-export type CartItemsPizza = {
-  id: number;
-  title: string;
-  imageUrl: string;
-  size: number;
-  count: number;
-  price: number;
-  types: string;
-}
-
-interface CartSliceState {
-  totalPrice: number;
-  itemsPizza: CartItemsPizza[]
-}
-
-const initialState: CartSliceState = {
+const initialState = {
   totalPrice: 0,
   itemsPizza: [],
 };
@@ -26,7 +10,7 @@ export const cardSlice = createSlice({
   initialState,
   reducers: {
 
-    setAddItem(state, action: PayloadAction<CartItemsPizza>) {
+    setAddItem(state, action) {
       const countItems = state.itemsPizza.find(obj => obj.id == action.payload.id);
       if (countItems) {
         countItems.count++
@@ -41,13 +25,13 @@ export const cardSlice = createSlice({
         return (obj.price * obj.count) + sum
       }, 0)
     },
-    setMinusCount(state, action: PayloadAction<number>) {
+    setMinusCount(state, action) {
       const countItems = state.itemsPizza.find(obj => obj.id == action.payload);
       if (countItems) {
         countItems.count--
       }
     },
-    setRemoveItem(state, action: PayloadAction<number>) {
+    setRemoveItem(state, action) {
       state.itemsPizza = state.itemsPizza.filter((obj) => obj.id != action.payload)
     },
     setClearItem(state) {
@@ -58,8 +42,8 @@ export const cardSlice = createSlice({
 });
 
 export const { setAddItem, setClearItem, setRemoveItem, setMinusCount } = cardSlice.actions;
-export const selectCard = (state: RootState) => state.cardReducer
-export const selectItem = (state: RootState) => state.cardReducer.itemsPizza
-export const selectItemId = (id: number) => (state: RootState) => state.cardReducer.itemsPizza.find((obj) => obj.id == id)
+export const selectCard = (state) => state.cardReducer
+export const selectItem = (state) => state.cardReducer.itemsPizza
+export const selectItemId = (id: string) => (state) => state.cardReducer.itemsPizza.find((obj) => obj.id == id)
 
 export default cardSlice.reducer;
