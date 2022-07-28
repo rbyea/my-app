@@ -1,44 +1,30 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectItemId, setAddItem } from '../../redux/slices/cardSlice';
+import { selectItem, setAddItem } from '../../redux/slices/cardSlice';
 
-type PizzaBlockProps = {
-  id: number;
-  title: string;
-  imageUrl: string;
-  price: number;
-  sizes: number[];
-  types: number[];
-}
-
-const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, price, sizes, types }) => {
+const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
   const [typeCount, setTypeCount] = useState(0);
   const [sizeCount, setSizeCount] = useState(0);
 
   const typeName = ['тонкое', 'традиционное'];
 
   const dispatch = useDispatch();
-
-  const cardItem = useSelector(selectItemId)
+  const cardItem = useSelector((state) => state.cardReducer.itemsPizza.find((obj) => obj.id == id))
 
   const addItemPizza = () => {
-    const item =
-    {
+    const item = {
       id,
       title,
       imageUrl,
       price,
       size: sizes[sizeCount],
       types: typeName[typeCount],
-      count: 0
     }
     dispatch(setAddItem(item))
   }
 
-  // @ts-ignore
   const addedCount = cardItem ? cardItem.count : 0;
-
 
   return (
 
@@ -62,7 +48,6 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, price, siz
             }
           </ul>
           <ul>
-
             {
               sizes.map((value, i) => (
                 <li key={i} onClick={() => setSizeCount(i)} className={sizeCount == i ? 'active' : ''}>{value}</li>

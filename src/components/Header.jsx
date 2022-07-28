@@ -7,13 +7,21 @@ import { selectCard } from '../redux/slices/cardSlice';
 import { selectPizzas } from '../redux/slices/pizzaSlice';
 
 
-const Header: React.FC = () => {
+const Header = () => {
   const location = useLocation();
 
   const { totalPrice, itemsPizza } = useSelector(selectCard);
   const { itemId } = useSelector(selectPizzas);
 
-  const totalCount = itemsPizza.reduce((sum: any, itemsPizza: any) => sum + itemsPizza.count, 0)
+  const totalCount = itemsPizza.reduce((sum, itemsPizza) => sum + itemsPizza.count, 0);
+
+
+  React.useEffect(() => {
+    const jsonCount = JSON.stringify(itemsPizza)
+    const jsonPrice = JSON.stringify(totalPrice)
+    localStorage.setItem('cart', jsonCount)
+    localStorage.setItem('price', jsonPrice)
+  }, [itemsPizza, totalPrice])
 
   return (
     <div className="header">

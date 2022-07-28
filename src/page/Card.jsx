@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CardItem from '../components/CardBlock/CardItem'
 import CardEmty from '../components/CardBlock/CardEmty';
 import { Link } from "react-router-dom";
@@ -11,8 +11,13 @@ const Card = () => {
   const items = useSelector(selectItem)
 
   const { totalPrice, itemsPizza } = useSelector(selectCard);
-  const totalCount = itemsPizza.reduce((sum: number, itemsPizza: any) => sum + itemsPizza.count, 0)
+  const totalCount = itemsPizza.reduce((sum, itemsPizza) => sum + itemsPizza.count, 0);
+  
 
+  React.useEffect(() => {
+    console.log(totalPrice)
+  }, [totalPrice])
+ 
   const removeAllItem = () => {
     if (window.confirm('Ты действительно хочешь очистить всю корзину!?')) {
       dispatch(setClearItem())
@@ -45,7 +50,7 @@ const Card = () => {
         </div>
         <div className="content__items">
           {
-            items.map((obj: any) => (
+            items.map((obj) => (
               <CardItem key={obj.id} {...obj} />
             ))
           }

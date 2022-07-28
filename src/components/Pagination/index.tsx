@@ -2,12 +2,7 @@ import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-type PagintaionBlockProps = {
-  page: number;
-  onChangePagination: (value: number) => void;
-}
-
-const PaginationBlock: React.FC<PagintaionBlockProps> = ({ page, onChangePagination }) => {
+const PaginationBlock = ({ page, onChangePagination }) => {
 
   return (
     <Stack spacing={2}>

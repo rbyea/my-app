@@ -9,7 +9,7 @@ import PizzaItem from './components/CardBlock/PizzaItem';
 
 import './scss/app.scss';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="wrapper-container">
       <div className="wrapper">

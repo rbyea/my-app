@@ -41,3 +41,17 @@
     opacity: .8;
   }
 }
+
+
+@media (max-width: 1100px) {
+  .item {
+    margin-bottom: 20px;
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .input {
+    max-width: 100%;
+    width: 100%;
+  }
+}
